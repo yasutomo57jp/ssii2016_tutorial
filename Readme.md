@@ -21,3 +21,14 @@
 	* chainer がインストールしてあること
 * nn_gpu.pyやcnn_gpu.py を実行する場合，CUDAをインストールした後にchainerをインストール
 	* ただし，CUDAに対応したGPUが必要です
+
+### CUDA インストール
+
+[こちら](https://developer.nvidia.com/cuda-downloads)から自分の環境に合うものをダウンロードしてインストールしてください
+
+### chainer インストール
+* 以下のコマンドを実行
+
+```bash
+pip install chainer
+```
