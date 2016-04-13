@@ -73,7 +73,7 @@ joblib.dump((model, training_time, losses), "classifiers/"+"nn_gpu")
 # 評価
 start = time.time()
 x_test = Variable(cuda.to_gpu(data_test))
-result_scores = forward(x_test, train=False).to_cpu()
+result_scores = forward(x_test, is_train=False).to_cpu()
 predict_time = time.time() - start
 results = np.argmax(result_scores, axis=1)
 
