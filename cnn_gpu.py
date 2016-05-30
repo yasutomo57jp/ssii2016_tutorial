@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import time
-from chainer import FunctionSet, Variable, optimizers, cuda
+from chainer import Chain, Variable, optimizers, cuda
 import chainer.functions as F
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.externals import joblib
@@ -26,7 +26,7 @@ data_train = conv_feat_2_image(data_train)
 data_test = conv_feat_2_image(data_test)
 
 # 層のパラメータ
-model = FunctionSet(
+model = Chain(
             conv1=F.Convolution2D(1, 32, 3),
             conv2=F.Convolution2D(32, 64, 3),
             l1=F.Linear(576, 200),
