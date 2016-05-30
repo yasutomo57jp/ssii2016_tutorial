@@ -88,7 +88,7 @@ joblib.dump((model, training_time, losses), "classifiers/"+"nn_cpu")
 # 評価
 start = time.time()
 x_test = Variable(data_test)
-result_scores = forward(x_test, is_train=False)
+result_scores = forward(x_test, is_train=False).data
 predict_time = time.time() - start
 results = np.argmax(result_scores, axis=1)
 
