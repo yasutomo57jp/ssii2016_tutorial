@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import time
-from chainer import FunctionSet, Variable, optimizers
+from chainer import Chain, Variable, optimizers
 import chainer.functions as F
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.externals import joblib
@@ -15,7 +15,7 @@ label_train = np.asarray(label_train, np.int32)
 label_test = np.asarray(label_test, np.int32)
 
 # 層のパラメータ
-model = FunctionSet(
+model = Chain(
             l1=F.Linear(784, 200),
             l2=F.Linear(200, 100),
             l3=F.Linear(100, 10))
@@ -73,7 +73,7 @@ joblib.dump((model, training_time, losses), "classifiers/"+"nn_cpu")
 # 評価
 start = time.time()
 x_test = Variable(data_test)
-result_scores = forward(x_test, is_train=False)
+result_scores = forward(x_test, is_train=False).data
 predict_time = time.time() - start
 results = np.argmax(result_scores, axis=1)
 
