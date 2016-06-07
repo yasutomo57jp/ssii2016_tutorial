@@ -33,31 +33,39 @@ optimizer = optimizers.Adam()
 optimizer.setup(model)
 
 # 学習
-n_epoch = 100
-batchsize = 20
+n_epoch = 100  # 学習繰り返し回数
+batchsize = 20  # 学習データの分割サイズ
 N = len(data_train)
-losses = []
-start = time.time()
+losses = []  # 各回での誤差の変化を記録するための配列
+
+start = time.time()  # 処理時間の計測開始
 for epoch in range(n_epoch):
     print('epoch: %d' % (epoch+1))
-    perm = np.random.permutation(N)
+    perm = np.random.permutation(N)  # 分割をランダムにするための並べ替え
     sum_accuracy = 0
     sum_loss = 0
     for i in range(0, N, batchsize):
+        # 並べ替えた i〜i+batchsize 番目までのデータを使って学習
         x_batch = data_train[perm[i:i+batchsize]]
         t_batch = label_train[perm[i:i+batchsize]]
 
+        # 初期化
         optimizer.zero_grads()
 
+        # 順伝播
         x = Variable(x_batch)
         t = Variable(t_batch)
         p = forward(x)
 
+        # 誤差の計算
         loss = F.softmax_cross_entropy(p, t)
+        # 認識率の計算（表示用）
         accuracy = F.accuracy(p, t)
 
+        # 誤差逆伝播
         loss.backward()
 
+        # パラメータ更新
         optimizer.update()
 
         sum_loss += float(loss.data) * batchsize

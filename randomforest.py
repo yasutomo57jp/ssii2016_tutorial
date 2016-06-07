@@ -17,5 +17,6 @@ classifier.fit(data_train, label_train)
 
 result = classifier.predict(data_test)
 
+# Confusion matrixを計算
 cmat = confusion_matrix(label_test, result)
 print(cmat)
